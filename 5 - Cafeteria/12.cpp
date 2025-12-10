@@ -11,7 +11,7 @@ unsigned long long INF = 1ULL << 63;
 int main() {
     set<pair<unsigned long long, unsigned long long> > ranges;
     string line;
-    while(std::getline(cin, line) && !line.empty()) {
+    while(getline(cin, line) && !line.empty()) {
         unsigned long long a, b;
         sscanf(line.c_str(), "%llu-%llu", &a, &b);
         auto begin_it = ranges.lower_bound(make_pair(a, a));

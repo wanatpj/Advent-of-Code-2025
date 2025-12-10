@@ -24,7 +24,7 @@ int main(){
     vector<string> lines;
     string line;
     long long total = 0;
-    while(std::getline(cin, line) && !line.empty()) lines.push_back(line);
+    while(getline(cin, line) && !line.empty()) lines.push_back(line);
     for(int i = 0; i < lines.rbegin()->size(); i++) {
         char op = lines.rbegin()->at(i);
         optional<short> number;

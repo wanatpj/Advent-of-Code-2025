@@ -10,7 +10,7 @@ int main(){
     vector<vector<short>> parsed;
     string line;
     long long total = 0;
-    while(std::getline(cin, line) && !line.empty()) {
+    while(getline(cin, line) && !line.empty()) {
         int idx = 0;
         stringstream ss(line);
         string raw_number;

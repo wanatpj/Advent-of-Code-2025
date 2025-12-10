@@ -1,0 +1,39 @@
+import pulp
+import sys
+
+# Wrong Answer: solution is way to low???
+
+def solve(buttons: list[list[int]], joltage: list[int]) -> int:
+    problem = pulp.LpProblem("Factory", pulp.LpMinimize)
+    x = [
+        pulp.LpVariable(f"x_{i}", lowBound=0, cat="Integer")
+        for i in range(len(buttons))
+    ]
+    problem += pulp.lpSum(x)
+    for j in range(len(joltage)):
+        problem += (
+            pulp.lpSum(
+                x[i]
+                for i in range(len(buttons))
+                if j in buttons[i]
+            ) >= joltage[j]
+        )
+    problem.solve(pulp.PULP_CBC_CMD(msg=False))
+    print(list(x_.varValue for x_ in x))
+    return sum(x_.varValue for x_ in x)
+
+def main():
+    total = 0
+    for line in sys.stdin:
+        lights, *raw_buttons, raw_joltage = line.split()
+        buttons = [
+            list(map(int, raw_button[1:-1].split(",")))
+            for raw_button in raw_buttons
+        ]
+        joltage = list(map(int, raw_joltage[1:-1].split(",")))
+        total += solve(buttons, joltage)
+    print(total)
+
+
+if __name__ == "__main__":
+    main()

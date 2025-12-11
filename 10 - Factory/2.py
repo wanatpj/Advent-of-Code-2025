@@ -1,8 +1,6 @@
 import pulp
 import sys
 
-# Wrong Answer: solution is way to low???
-
 def solve(buttons: list[list[int]], joltage: list[int]) -> int:
     problem = pulp.LpProblem("Factory", pulp.LpMinimize)
     x = [

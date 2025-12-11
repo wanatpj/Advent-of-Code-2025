@@ -16,11 +16,18 @@ def solve(buttons: list[list[int]], joltage: list[int]) -> int:
                 x[i]
                 for i in range(len(buttons))
                 if j in buttons[i]
-            ) >= joltage[j]
+            ) == joltage[j]
         )
     problem.solve(pulp.PULP_CBC_CMD(msg=False))
-    print(list(x_.varValue for x_ in x))
-    return sum(x_.varValue for x_ in x)
+    solution = [x_.varValue for x_ in x]
+    for j in range(len(joltage)):
+        joltage_sum = 0
+        for b in range(len(buttons)):
+            if j in buttons[b]:
+                joltage_sum += solution[b]
+        if joltage_sum < joltage[j]:
+            raise RuntimeError("wrong solution")
+    return sum(solution)
 
 def main():
     total = 0
